@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Number Picker</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: #fff;
+    }
+    #display {
+      font-size: 6rem;
+      font-weight: bold;
+      animation: fadeIn 0.5s ease-in-out;
+      opacity: 0;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1.5rem;
+      border: none;
+      border-radius: 10px;
+      background-color: #fff;
+      color: #2575fc;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    button:hover {
+      transform: scale(1.1);
+    }
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="display">--</div>
+  <button onclick="generateRandomNumber()">Generate Number</button>
+
+  <script>
+    const maxNumber = 40; // Set the maximum range here
+
+    function generateRandomNumber() {
+      const display = document.getElementById('display');
+      display.textContent = "--"; // Reset display
+      display.style.opacity = "0"; // Hide display initially
+      
+      // Number shuffle animation before showing the final result
+      let counter = 0;
+      const shuffleInterval = setInterval(() => {
+        display.textContent = Math.floor(Math.random() * maxNumber) + 1;
+        display.style.opacity = "1";
+        counter++;
+        if (counter > 10) { // Control the duration of the shuffle
+          clearInterval(shuffleInterval);
+          revealFinalNumber();
+        }
+      }, 100); // Interval for the shuffle effect
+    }
+
+    function revealFinalNumber() {
+      const randomNumber = Math.floor(Math.random() * maxNumber) + 1;
+      const display = document.getElementById('display');
+      display.style.opacity = "0"; // Hide for fade-in effect
+      setTimeout(() => {
+        display.textContent = randomNumber;
+        display.style.opacity = "1"; // Fade in with final number
+      }, 200); // Delay before revealing final number
+    }
+  </script>
+</body>
+</html>
